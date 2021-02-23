@@ -12,42 +12,67 @@ public class MainWindow extends JFrame {
 
 	protected PokerSignalPanel tsPanel;
 
-	protected JFrame frame;
+	protected JFrame controlFrame;
+	protected JFrame signalFrame;
+	
+	GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
+	Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
 
 	public MainWindow() {
+		GraphicsDevice[] gds = ge.getScreenDevices();
 		createPartControl();
+		createSignalWindow();
 	}
 
 	protected void createPartControl() {
-		tsPanel = new PokerSignalPanel();
 		bPanel = new ButtonPanel();
 
-		bPanel.setTrafficSignalPanel(tsPanel);
-
-		frame = new JFrame();
-		frame.setTitle("Traffic Signal");
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.addWindowListener(new WindowAdapter() {
+		controlFrame = new JFrame();
+		controlFrame.setAlwaysOnTop(rootPaneCheckingEnabled);
+		controlFrame.setTitle("PokerHelper");
+		controlFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		controlFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent event) {
 				exitProcedure();
 			}
 		});
 
-		frame.setLayout(new FlowLayout());
-		frame.add(bPanel.getPanel());
-		frame.add(tsPanel.getPanel());
-		frame.pack();
-//	      frame.setBounds(100, 100, 400, 200);
-		frame.setVisible(true);
+		controlFrame.setLayout(new FlowLayout());
+		controlFrame.add(bPanel.getPanel());
+//		int y = (int) rect.getMaxX() - controlFrame.getWidth();
+//		int x = 0;
+		 controlFrame.setLocation(GraphicsEnvironment
+                 .getLocalGraphicsEnvironment()
+                 .getScreenDevices()[1]
+                 .getDefaultConfiguration()
+                 .getBounds()
+                 .getLocation());
+		controlFrame.setSize(150, 75);
+		controlFrame.setVisible(true);
+	}
+	
+	protected void createSignalWindow() {
+		signalFrame = new JFrame();
+		signalFrame.setUndecorated(true);
+        signalFrame.setBackground(new Color(0, 0, 0, 0));
+		signalFrame.setVisible(true);
+//        signalFrame.setLocationRelativeTo(null);
+		signalFrame.setAlwaysOnTop(rootPaneCheckingEnabled);
+		signalFrame.setSize((int)rect.getMaxX(), (int)rect.getMaxY());
+		tsPanel = new PokerSignalPanel();
+		bPanel.setPokerSignalPanel(tsPanel);
+		signalFrame.add(tsPanel.getPanel());
+
 	}
 
 	public void exitProcedure() {
-		frame.dispose();
+		controlFrame.dispose();
 		System.exit(0);
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return controlFrame;
 	}
 
 }

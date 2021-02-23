@@ -13,14 +13,15 @@ public class PokerLightPanel extends JPanel {
 
     protected Color lightColor;
     protected Color darkColor;
+    protected String test;
 
     public PokerLightPanel(Color lightColor) {
         this.lightColor = lightColor;
-        this.darkColor = Color.WHITE;
+        this.darkColor = Color.YELLOW;
         this.lightOn = false;
     }
 
-    public void setLightOn(boolean lightOn) {
+	public void setLightOn(boolean lightOn) {
         this.lightOn = lightOn;
         this.repaint();
     }
@@ -33,6 +34,9 @@ public class PokerLightPanel extends JPanel {
             g.setColor(darkColor);
         }
         g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(Color.BLUE);
+        g.drawString("TEST", 100, 100);
+
     }
 
 }

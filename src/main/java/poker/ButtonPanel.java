@@ -80,7 +80,7 @@ public class ButtonPanel {
 		return d;
 	}
 
-	public void setTrafficSignalPanel(PokerSignalPanel tsPanel) {
+	public void setPokerSignalPanel(PokerSignalPanel tsPanel) {
 		this.pokerPanel = tsPanel;
 	}
 

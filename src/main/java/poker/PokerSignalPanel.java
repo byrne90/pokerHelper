@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -21,28 +22,28 @@ public class PokerSignalPanel {
 	}
 
 	protected void createPartControl() {
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 4);
 
 		redLight = new PokerLightPanel(Color.RED);
-		redLight.setBorder(border);
 		redLight.setPreferredSize(PokerSignalModel.LIGHT_SIZE);
 
 		yellowLight = new PokerLightPanel(Color.YELLOW);
-		yellowLight.setBorder(border);
 		yellowLight.setPreferredSize(PokerSignalModel.LIGHT_SIZE);
 
 		greenLight = new PokerLightPanel(Color.GREEN);
-		greenLight.setBorder(border);
 		greenLight.setPreferredSize(PokerSignalModel.LIGHT_SIZE);
 
 		panel = new JPanel();
+		panel.setOpaque(false);
 		panel.setLayout(new FlowLayout());
 		panel.setPreferredSize(
-				new Dimension(PokerSignalModel.LIGHT_SIZE.width + 10, PokerSignalModel.LIGHT_SIZE.height * 3 + 25));
+				new Dimension(PokerSignalModel.LIGHT_SIZE.width, PokerSignalModel.LIGHT_SIZE.height ));
 
 		panel.add(redLight);
 		panel.add(yellowLight);
 		panel.add(greenLight);
+		
+//		JLabel label = new JLabel("AA");
+//		panel.add(label);
 	}
 
 	public JPanel getPanel() {
