@@ -39,7 +39,7 @@ public class MainWindow extends JFrame {
 		});
 
 		controlFrame.setLayout(new FlowLayout());
-		controlFrame.add(bPanel.getPanel());
+		controlFrame.add(bPanel.getTextPanel());
 //		int y = (int) rect.getMaxX() - controlFrame.getWidth();
 //		int x = 0;
 		 controlFrame.setLocation(GraphicsEnvironment
@@ -62,7 +62,7 @@ public class MainWindow extends JFrame {
 		signalFrame.setSize((int)rect.getMaxX(), (int)rect.getMaxY());
 		tsPanel = new PokerSignalPanel();
 		bPanel.setPokerSignalPanel(tsPanel);
-		signalFrame.add(tsPanel.getPanel());
+		signalFrame.add(tsPanel.getTextPanel());
 
 	}
 

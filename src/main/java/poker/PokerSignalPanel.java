@@ -11,11 +11,11 @@ import javax.swing.border.Border;
 
 public class PokerSignalPanel {
 
-	protected JPanel panel;
+	protected JPanel textPanel;
+//	protected JLabel label;
 
-	protected PokerLightPanel redLight;
-	protected PokerLightPanel yellowLight;
-	protected PokerLightPanel greenLight;
+	protected PokerLightPanel lightPanel;
+	protected PokerCardPanel cardPanel;
 
 	public PokerSignalPanel() {
 		createPartControl();
@@ -23,43 +23,34 @@ public class PokerSignalPanel {
 
 	protected void createPartControl() {
 
-		redLight = new PokerLightPanel(Color.RED);
-		redLight.setPreferredSize(PokerSignalModel.LIGHT_SIZE);
+		lightPanel = new PokerLightPanel();
+		lightPanel.setPreferredSize(PokerSignalModel.LIGHT_SIZE);
 
-		yellowLight = new PokerLightPanel(Color.YELLOW);
-		yellowLight.setPreferredSize(PokerSignalModel.LIGHT_SIZE);
-
-		greenLight = new PokerLightPanel(Color.GREEN);
-		greenLight.setPreferredSize(PokerSignalModel.LIGHT_SIZE);
-
-		panel = new JPanel();
-		panel.setOpaque(false);
-		panel.setLayout(new FlowLayout());
-		panel.setPreferredSize(
-				new Dimension(PokerSignalModel.LIGHT_SIZE.width, PokerSignalModel.LIGHT_SIZE.height ));
-
-		panel.add(redLight);
-		panel.add(yellowLight);
-		panel.add(greenLight);
+		cardPanel = new PokerCardPanel("contructor");
+		cardPanel.setForeground(Color.BLACK);
+		cardPanel.setPreferredSize(PokerSignalModel.DOUBLE_LIGHT_SIZE);
 		
-//		JLabel label = new JLabel("AA");
-//		panel.add(label);
+		textPanel = new JPanel();
+		textPanel.setOpaque(false);
+		textPanel.setLayout(new FlowLayout());
+		textPanel.setPreferredSize(new Dimension(PokerSignalModel.DOUBLE_LIGHT_SIZE.height, PokerSignalModel.DOUBLE_LIGHT_SIZE.height));
+//        textPanel.setPreferredSize(new Dimension(300, 300));
+
+
+		textPanel.add(lightPanel);
+		textPanel.add(cardPanel);
 	}
 
-	public JPanel getPanel() {
-		return panel;
+	public JPanel getTextPanel() {
+		return textPanel;
 	}
 
-	public PokerLightPanel getRedLight() {
-		return redLight;
+	public PokerLightPanel getLightPanel() {
+		return lightPanel;
 	}
-
-	public PokerLightPanel getYellowLight() {
-		return yellowLight;
-	}
-
-	public PokerLightPanel getGreenLight() {
-		return greenLight;
+	
+	public PokerCardPanel getCardPanel() {
+		return cardPanel;
 	}
 
 }

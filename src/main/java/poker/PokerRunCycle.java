@@ -8,9 +8,11 @@ public class PokerRunCycle extends Thread {
 	protected boolean isFinished;
 
 	protected PokerSignalPanel tsPanel;
+//	protected PokerCardPanel cardPanel;
 
 	public PokerRunCycle(PokerSignalPanel tsPanel) {
 		this.tsPanel = tsPanel;
+//		this.cardPanel=cardPanel;
 		this.isRunning = true;
 		this.isFinished = false;
 	}
@@ -18,32 +20,36 @@ public class PokerRunCycle extends Thread {
 	@Override
 	public void run() {
 		while (isRunning) {
-			signalLightOn(tsPanel.getGreenLight(), PokerSignalModel.GREEN_LIGHT_TIME);
-			signalLightOn(tsPanel.getYellowLight(), PokerSignalModel.YELLOW_LIGHT_TIME);
-			signalLightOn(tsPanel.getRedLight(), PokerSignalModel.RED_LIGHT_TIME);
+			// TODO tutaj impmenetacja czytania kart etc
+//			signalLightOn(tsPanel.getGreenLight(), PokerSignalModel.GREEN_LIGHT_TIME);
+//			signalLightOn(tsPanel.getYellowLight(), PokerSignalModel.YELLOW_LIGHT_TIME);
+			signalLightOn(tsPanel.getLightPanel(), tsPanel.getCardPanel(), "red", "SUKCES");
 		}
 		this.isFinished = true;
 	}
 
-	protected void signalLightOn(PokerLightPanel light, int seconds) {
-		if (isRunning) {
-			setLightOn(light, true);
-		}
-
-		for (int i = 0; i < 1000 && isRunning; i++) {
-			try {
-				Thread.sleep(1L * seconds);
-			} catch (InterruptedException e) {
-			}
-		}
-		setLightOn(light, false);
+	protected void signalLightOn(PokerLightPanel light, PokerCardPanel card, String color, String cardText) {
+		setLightOn(light, color);
+		setTextOn(card, cardText);
 	}
 
-	protected void setLightOn(final PokerLightPanel light, final boolean isLightOn) {
+	protected void setIdleStatus() {
+		setLightOn(tsPanel.getLightPanel(), "xxx");
+		setTextOn(tsPanel.getCardPanel(), "??");
+	}
+
+	protected void setLightOn(final PokerLightPanel light, final String isLightOn) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				light.setLightOn(isLightOn);
+				light.setColor(isLightOn);
+			}
+		});
+	}
 
+	protected void setTextOn(final PokerCardPanel card, final String text) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				card.setCardPanelText(text);
 			}
 		});
 	}
@@ -51,11 +57,11 @@ public class PokerRunCycle extends Thread {
 	public void stopRunning() {
 		this.isRunning = false;
 		while (!isFinished) {
+			setIdleStatus();
 			try {
-				Thread.sleep(10L);
+				Thread.sleep(5L);
 			} catch (InterruptedException e) {
 			}
 		}
 	}
-
 }

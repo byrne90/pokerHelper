@@ -8,34 +8,37 @@ import javax.swing.JPanel;
 public class PokerLightPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
+    
+//    protected PokerSignalPanel pokerSignalPanel;
 
-    protected boolean lightOn;
+    protected String lightOn;
 
-    protected Color lightColor;
-    protected Color darkColor;
-    protected String test;
+    protected Color redColor=Color.RED;
+    protected Color yellowColor=Color.YELLOW;
+    protected Color greenColor=Color.GREEN;
+    protected Color darkColor =Color.GREEN;
+    protected Color greyColor =Color.GRAY;
 
-    public PokerLightPanel(Color lightColor) {
-        this.lightColor = lightColor;
-        this.darkColor = Color.YELLOW;
-        this.lightOn = false;
-    }
 
-	public void setLightOn(boolean lightOn) {
-        this.lightOn = lightOn;
+//    public PokerLightPanel() {
+//        this.lightOn = false;
+//    }
+
+	public void setColor(String color) {
+        this.lightOn = color;
         this.repaint();
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        if (lightOn) {
-            g.setColor(lightColor);
+        if(lightOn==null) {
+            g.setColor(greyColor);
+        } else if (lightOn.equals("red")) {
+            g.setColor(redColor);
         } else {
             g.setColor(darkColor);
         }
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(Color.BLUE);
-        g.drawString("TEST", 100, 100);
 
     }
 

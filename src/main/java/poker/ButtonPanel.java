@@ -34,9 +34,7 @@ public class ButtonPanel {
 				if (thread != null) {
 					thread.stopRunning();
 				}
-				pokerPanel.getRedLight().setLightOn(false);
-				pokerPanel.getYellowLight().setLightOn(false);
-				pokerPanel.getGreenLight().setLightOn(false);
+				pokerPanel.getLightPanel().setColor("xxx");
 				thread = new PokerRunCycle(pokerPanel);
 				thread.start();
 			}
@@ -49,11 +47,9 @@ public class ButtonPanel {
 			public void actionPerformed(ActionEvent event) {
 				if (thread != null) {
 					thread.stopRunning();
+					pokerPanel.getLightPanel().setColor("xxx");
 					thread = null;
 				}
-				pokerPanel.getRedLight().setLightOn(true);
-				pokerPanel.getYellowLight().setLightOn(false);
-				pokerPanel.getGreenLight().setLightOn(false);
 			}
 		});
 
@@ -84,7 +80,7 @@ public class ButtonPanel {
 		this.pokerPanel = tsPanel;
 	}
 
-	public JPanel getPanel() {
+	public JPanel getTextPanel() {
 		return panel;
 	}
 }
