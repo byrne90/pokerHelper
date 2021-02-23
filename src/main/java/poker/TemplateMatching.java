@@ -58,6 +58,8 @@ public class TemplateMatching {
 					percentage = tempPercentage;
 					currentCard = deckOfCards[z].getName();
 					System.out.println(currentCard);
+			           System.out.println("Difference: "+percentage);
+
 				}
 //           System.out.println("Difference: "+percentage);
 //           System.out.println(z);
