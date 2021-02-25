@@ -13,18 +13,19 @@ public class TemplateMatching {
 			.listFiles();
 	private String firstCard = null;
 	private String secondCard = null;
-	private String flop = null;
+	private String firstCardFlop = null;
+	private String secondCardFlop = null;
+	private String thirdCardFlop = null;
+
 	private String turn = null;
 	private String river = null;
 
-	private String compareCard(String fileName) throws IOException {
-		// TODO modify comparison engine RGB and float can not handle it!!!!
+	private String compareCardPixels(String fileName) throws IOException {
 		double percentage = 100;
 		String currentCard = null;
 
 		for (int z = 0; z < deckOfCards.length; z++) {
 			BufferedImage img1 = ImageIO.read(new File(fileName));
-//    	System.out.println(deckOfCards[z].getName());
 			BufferedImage img2 = ImageIO.read(deckOfCards[z]);
 			int w1 = img1.getWidth();
 			int w2 = img2.getWidth();
@@ -58,23 +59,82 @@ public class TemplateMatching {
 					percentage = tempPercentage;
 					currentCard = deckOfCards[z].getName();
 					System.out.println(currentCard);
-			           System.out.println("Difference: "+percentage);
+					System.out.println("Difference: " + percentage);
 
 				}
-//           System.out.println("Difference: "+percentage);
-//           System.out.println(z);
 			}
 		}
 		System.out.println("Current card: " + currentCard);
-		return currentCard;
+		if (percentage > 1.5) {
+			return "??";
+		}
+		return currentCard.substring(0,currentCard.indexOf("."));
 	}
 
-	public void compareFirstCard(String pathToFirstCardImage) throws IOException {
-		firstCard = (compareCard(pathToFirstCardImage));
+	public void compareFirstCard(String pathToCardImage) {
+		firstCard = (compareCard(pathToCardImage));
 	}
 
-	public void compareSecondCard(String pathToSecondCardImage) throws IOException {
-		secondCard = (compareCard(pathToSecondCardImage));
+	public void compareSecondCard(String pathToCardImage) {
+		secondCard = (compareCard(pathToCardImage));
+	}
+	
+	public void compareFirstCardFlop(String pathToCardImage) {
+		firstCardFlop = (compareCard(pathToCardImage));
+	}
+	
+	public void compareSecondCardFlop(String pathToCardImage) {
+		secondCardFlop = (compareCard(pathToCardImage));
+	}
+	
+	public void compareThirdCardFlop(String pathToCardImage) {
+		thirdCardFlop = (compareCard(pathToCardImage));
+	}
+	
+	public void compareTurn(String pathToCardImage) {
+		turn = (compareCard(pathToCardImage));
+	}
+	
+	public void compareRiver(String pathToCardImage) {
+		river = (compareCard(pathToCardImage));
+	}
+
+	public String compareCard(String pathToCardImage) {
+		try {
+			return compareCardPixels(pathToCardImage);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("WRONG PATH?");
+			return null;
+		}
+	}
+
+	public String getFirstCard() {
+		return firstCard;
+	}
+
+	public String getSecondCard() {
+		return secondCard;
+	}
+
+	public String getFirstCardFlop() {
+		return firstCardFlop;
+	}
+
+	public String getSecondCardFlop() {
+		return secondCardFlop;
+	}
+
+	public String getThirdCardFlop() {
+		return thirdCardFlop;
+	}
+
+	public String getTurnCard() {
+		return turn;
+	}
+
+	public String getRiverCard() {
+		return river;
 	}
 
 }

@@ -1,13 +1,20 @@
 package poker;
 
 import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 
 public class PokerSignalModel {
-
-//    public static final int RED_LIGHT_TIME = 999;
-//    public static final int YELLOW_LIGHT_TIME = 999;
-//    public static final int GREEN_LIGHT_TIME = 999;
-
-    public static final Dimension LIGHT_SIZE = new Dimension(32, 32);
-    public static final Dimension DOUBLE_LIGHT_SIZE = new Dimension(150, 32);
+	
+	public final static GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	public final static GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
+	public final static Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
+	
+    public static final Dimension LIGHT_SIZE = new Dimension(64, 32);
+    public static final Dimension USER_MONITOR_RES = new Dimension(defaultScreen.getDisplayMode().getHeight(),defaultScreen.getDisplayMode().getWidth());
+    public static final Dimension POKER_LIGHT_PANEL_SIZE = new Dimension(80,120);
+    public static final Dimension HERO_CARDS_INDICATOR_SIZE = new Dimension((int)(rect.getHeight()*0.77), (int)(rect.getWidth()*0.43));
+    
+   
 }

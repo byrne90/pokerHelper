@@ -1,5 +1,6 @@
 package poker;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,7 +13,6 @@ import javax.swing.border.Border;
 public class PokerSignalPanel {
 
 	protected JPanel textPanel;
-//	protected JLabel label;
 
 	protected PokerLightPanel lightPanel;
 	protected PokerCardPanel cardPanel;
@@ -24,18 +24,18 @@ public class PokerSignalPanel {
 	protected void createPartControl() {
 
 		lightPanel = new PokerLightPanel();
-		lightPanel.setPreferredSize(PokerSignalModel.LIGHT_SIZE);
+		lightPanel.setPreferredSize(new Dimension(PokerSignalModel.LIGHT_SIZE.height, PokerSignalModel.LIGHT_SIZE.height));
 
-		cardPanel = new PokerCardPanel("contructor");
+		cardPanel = new PokerCardPanel("??");
 		cardPanel.setForeground(Color.BLACK);
-		cardPanel.setPreferredSize(PokerSignalModel.DOUBLE_LIGHT_SIZE);
+		cardPanel.setPreferredSize(PokerSignalModel.LIGHT_SIZE);
 		
 		textPanel = new JPanel();
 		textPanel.setOpaque(false);
 		textPanel.setLayout(new FlowLayout());
-		textPanel.setPreferredSize(new Dimension(PokerSignalModel.DOUBLE_LIGHT_SIZE.height, PokerSignalModel.DOUBLE_LIGHT_SIZE.height));
-//        textPanel.setPreferredSize(new Dimension(300, 300));
-
+//		textPanel.setLocation(300, 300);
+		textPanel.setVisible(true);
+		textPanel.setPreferredSize(new Dimension(PokerSignalModel.LIGHT_SIZE.height*2, PokerSignalModel.LIGHT_SIZE.height*2));
 
 		textPanel.add(lightPanel);
 		textPanel.add(cardPanel);

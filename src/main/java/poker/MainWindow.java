@@ -15,12 +15,10 @@ public class MainWindow extends JFrame {
 	protected JFrame controlFrame;
 	protected JFrame signalFrame;
 	
-	GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
-	Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
+	
 
 	public MainWindow() {
-		GraphicsDevice[] gds = ge.getScreenDevices();
+//		GraphicsDevice[] gds = PokerSignalModel.ge.getScreenDevices();
 		createPartControl();
 		createSignalWindow();
 	}
@@ -40,8 +38,6 @@ public class MainWindow extends JFrame {
 
 		controlFrame.setLayout(new FlowLayout());
 		controlFrame.add(bPanel.getTextPanel());
-//		int y = (int) rect.getMaxX() - controlFrame.getWidth();
-//		int x = 0;
 		 controlFrame.setLocation(GraphicsEnvironment
                  .getLocalGraphicsEnvironment()
                  .getScreenDevices()[1]
@@ -54,16 +50,20 @@ public class MainWindow extends JFrame {
 	
 	protected void createSignalWindow() {
 		signalFrame = new JFrame();
+//		signalFrame.setLayout(new FlowLayout());
 		signalFrame.setUndecorated(true);
         signalFrame.setBackground(new Color(0, 0, 0, 0));
 		signalFrame.setVisible(true);
-//        signalFrame.setLocationRelativeTo(null);
 		signalFrame.setAlwaysOnTop(rootPaneCheckingEnabled);
-		signalFrame.setSize((int)rect.getMaxX(), (int)rect.getMaxY());
+		System.out.println(PokerSignalModel.rect);
+		System.out.println(PokerSignalModel.HERO_CARDS_INDICATOR_SIZE.height);
+		System.out.println(PokerSignalModel.HERO_CARDS_INDICATOR_SIZE.width);
+
+		signalFrame.setLocation(PokerSignalModel.HERO_CARDS_INDICATOR_SIZE.height, PokerSignalModel.HERO_CARDS_INDICATOR_SIZE.width);
+		signalFrame.setSize(PokerSignalModel.POKER_LIGHT_PANEL_SIZE.height,PokerSignalModel.POKER_LIGHT_PANEL_SIZE.width);
 		tsPanel = new PokerSignalPanel();
 		bPanel.setPokerSignalPanel(tsPanel);
 		signalFrame.add(tsPanel.getTextPanel());
-
 	}
 
 	public void exitProcedure() {
