@@ -33,9 +33,9 @@ public class PokerSignalPanel {
 		textPanel = new JPanel();
 		textPanel.setOpaque(false);
 		textPanel.setLayout(new FlowLayout());
-//		textPanel.setLocation(300, 300);
+//		textPanel.setLocation(0, 0);
 		textPanel.setVisible(true);
-		textPanel.setPreferredSize(new Dimension(PokerSignalModel.LIGHT_SIZE.height*2, PokerSignalModel.LIGHT_SIZE.height*2));
+		textPanel.setPreferredSize(new Dimension(PokerSignalModel.LIGHT_SIZE.height*3, PokerSignalModel.LIGHT_SIZE.width*2));
 
 		textPanel.add(lightPanel);
 		textPanel.add(cardPanel);

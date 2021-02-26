@@ -10,39 +10,71 @@ import javax.imageio.ImageIO;
 public class ImageData extends PictureCapturing {
 
 	private String heroFirstCardPath = null;
-	private String heroSecondCard = null;
-	private String firstFlopCard = null;
-	private String secondFlopCard = null;
-	private String thirdFlopCard = null;
-	private String turnCard = null;
-	private String riverCard = null;
+	private String heroSecondCardPath = null;
+	private String firstFlopCardPath = null;
+	private String secondFlopCardPath = null;
+	private String thirdFlopCardPath = null;
+	private String turnCardPath = null;
+	private String riverCardPath = null;
+	
+	private String heroButtonPosition = null;
+	private String heroPlusOneButtonPosition = null;
+	private String heroPlusTwoButtonPosition = null;
+	private String heroPlusThreeButtonPosition = null;
+	private String heroPlusFourButtonPosition = null;
+	private String heroPlusFiveButtonPosition = null;
+
 
 	public String getHeroFirstCardPath() {
 		return heroFirstCardPath;
 	}
 
 	public String getHeroSecondCard() {
-		return heroSecondCard;
+		return heroSecondCardPath;
 	}
 
 	public String getFirstFlopCard() {
-		return firstFlopCard;
+		return firstFlopCardPath;
 	}
 
 	public String getSecondFlopCard() {
-		return secondFlopCard;
+		return secondFlopCardPath;
 	}
 
 	public String getThirdFlopCard() {
-		return thirdFlopCard;
+		return thirdFlopCardPath;
 	}
 
 	public String getTurnCard() {
-		return turnCard;
+		return turnCardPath;
 	}
 
 	public String getRiverCard() {
-		return riverCard;
+		return riverCardPath;
+	}
+	
+	public String getHeroButtonPosition() {
+		return heroButtonPosition;
+	}
+
+	public String getHeroPlusOneButtonPosition() {
+		return heroPlusOneButtonPosition;
+	}
+
+	public String getHeroPlusTwoButtonPosition() {
+		return heroPlusTwoButtonPosition;
+	}
+
+	public String getHeroPlusThreeButtonPosition() {
+		return heroPlusThreeButtonPosition;
+	}
+
+	public String getHeroPlusFourButtonPosition() {
+		return heroPlusFourButtonPosition;
+	}
+
+	public String getHeroPlusFiveButtonPosition() {
+		return heroPlusFiveButtonPosition;
 	}
 
 	public void getCroppedImage(String screenPath) {
@@ -50,14 +82,13 @@ public class ImageData extends PictureCapturing {
 		try {
 			src = ImageIO.read(new File(screenPath));
 			screenPath = screenPath.substring(0, screenPath.indexOf("."));
-			System.out.println("getCroppedImage " + screenPath);
+//			System.out.println("getCroppedImage " + screenPath);
 			getButtonPosition(src, screenPath);
 			getHeroCards(src, screenPath);
 			getFlopCards(src, screenPath);
 			getTurnCard(src, screenPath);
 			getRiverCard(src, screenPath);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -74,17 +105,16 @@ public class ImageData extends PictureCapturing {
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "FirstCard.png"));
 		heroFirstCardPath = screenName + "FirstCard.png";
-		System.out.println("firstHeroCardPath: " + heroFirstCardPath);
+//		System.out.println("firstHeroCardPath: " + heroFirstCardPath);
 	}
 
 	private void getSecondHeroCard(Image src, String screenName) throws IOException {
-		System.out.println(screenName);
 		int x = 961, y = 651, w = 91, h = 63;
 		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "SecondCard.png"));
-		heroSecondCard = screenName + "SecondCard.png";
-		System.out.println("second hero card: " + heroSecondCard);
+		heroSecondCardPath = screenName + "SecondCard.png";
+//		System.out.println("second hero card: " + heroSecondCard);
 	}
 
 	private void getFlopCards(Image src, String screenName) throws IOException {
@@ -98,7 +128,7 @@ public class ImageData extends PictureCapturing {
 		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "1stFlopCard.png"));
-		firstFlopCard = screenName + "1stFlopCard.png";
+		firstFlopCardPath = screenName + "1stFlopCard.png";
 	}
 
 	private void getSecondFlopCard(Image src, String screenName) throws IOException {
@@ -106,7 +136,7 @@ public class ImageData extends PictureCapturing {
 		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "2ndFlopCard.png"));
-		secondFlopCard = screenName + "2ndFlopCard.png";
+		secondFlopCardPath = screenName + "2ndFlopCard.png";
 	}
 
 	private void getThirdFlopCard(Image src, String screenName) throws IOException {
@@ -114,23 +144,23 @@ public class ImageData extends PictureCapturing {
 		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "3rdFlopCard.png"));
-		thirdFlopCard = screenName + "3rdFlopCard.png";
+		thirdFlopCardPath = screenName + "3rdFlopCard.png";
 	}
 
 	private void getTurnCard(Image src, String screenName) throws IOException {
-		int x = 1012, y = 356, w = 91, h = 63;
+		int x = 1013, y = 356, w = 91, h = 63;
 		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "TurnCard.png"));
-		turnCard = screenName + "TurnCard.png";
+		turnCardPath = screenName + "TurnCard.png";
 	}
 
 	private void getRiverCard(Image src, String screenName) throws IOException {
-		int x = 1111, y = 356, w = 91, h = 63;
+		int x = 1112, y = 356, w = 91, h = 63;
 		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "RiverCard.png"));
-		riverCard = screenName + "RiverCard.png";
+		riverCardPath = screenName + "RiverCard.png";
 	}
 
 	private void getButtonPosition(Image src, String screenName) throws IOException {
@@ -147,6 +177,7 @@ public class ImageData extends PictureCapturing {
 		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "HeroButton.png"));
+		heroButtonPosition = screenName + "HeroButton.png";
 	}
 
 	private void getButtonPositionOnHeroPlusOne(Image src, String screenName) throws IOException {
@@ -154,6 +185,7 @@ public class ImageData extends PictureCapturing {
 		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "HeroPlusOneButton.png"));
+		heroPlusOneButtonPosition = screenName + "HeroPlusOneButton.png";
 	}
 
 	private void getButtonPositionOnHeroPlusTwo(Image src, String screenName) throws IOException {
@@ -161,6 +193,7 @@ public class ImageData extends PictureCapturing {
 		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "HeroPlusTwoButton.png"));
+		heroPlusTwoButtonPosition = screenName + "HeroPlusTwoButton.png";
 	}
 
 	private void getButtonPositionOnHeroPlusThree(Image src, String screenName) throws IOException {
@@ -168,6 +201,7 @@ public class ImageData extends PictureCapturing {
 		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "HeroPlusThreeButton.png"));
+		heroPlusThreeButtonPosition = screenName + "HeroPlusThreeButton.png";
 	}
 
 	private void getButtonPositionOnHeroPlusFour(Image src, String screenName) throws IOException {
@@ -175,6 +209,7 @@ public class ImageData extends PictureCapturing {
 		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "HeroPlusFourButton.png"));
+		heroPlusFourButtonPosition = screenName + "HeroPlusFourButton.png";
 	}
 
 	private void getButtonPositionOnHeroPlusFive(Image src, String screenName) throws IOException {
@@ -182,6 +217,39 @@ public class ImageData extends PictureCapturing {
 		BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		dst.getGraphics().drawImage(src, 0, 0, w, h, x, y, x + w, y + h, null);
 		ImageIO.write(dst, "png", new File(screenName + "HeroPlusFiveButton.png"));
+		heroPlusFiveButtonPosition = screenName + "HeroPlusFiveButton.png";
+	}
+	
+	public void deleteAllImagesFromCycle(String mainImage) {
+		deleteImage(mainImage);
+		deleteImage(heroFirstCardPath);
+		deleteImage(heroSecondCardPath);
+		
+		deleteImage(heroButtonPosition);
+		deleteImage(heroPlusOneButtonPosition);
+		deleteImage(heroPlusTwoButtonPosition);
+		deleteImage(heroPlusThreeButtonPosition);
+		deleteImage(heroPlusFourButtonPosition);
+		deleteImage(heroPlusFiveButtonPosition);
+
+		deleteImage(firstFlopCardPath);
+		deleteImage(secondFlopCardPath);
+		deleteImage(thirdFlopCardPath);
+		deleteImage(turnCardPath);
+		deleteImage(riverCardPath);
+	}
+	
+	private void deleteImage(String pathToImage) {
+		File file = new File(pathToImage); 
+        
+        if(file.delete()) 
+        { 
+//            System.out.println("File deleted successfully"); 
+        } 
+        else
+        { 
+//            System.out.println("Failed to delete the file"); 
+        } 
 	}
 
 }

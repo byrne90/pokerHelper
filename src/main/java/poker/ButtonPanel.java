@@ -18,6 +18,7 @@ public class ButtonPanel {
 	protected PokerRunCycle thread;
 
 	protected PokerSignalPanel pokerPanel;
+	protected CommonCardsSignalPanel commonCardsPanel;
 
 	public ButtonPanel() {
 		this.thread = null;
@@ -35,7 +36,7 @@ public class ButtonPanel {
 					thread.stopRunning();
 				}
 				pokerPanel.getLightPanel().setColor("xxx");
-				thread = new PokerRunCycle(pokerPanel);
+				thread = new PokerRunCycle(pokerPanel, commonCardsPanel);
 				thread.start();
 			}
 		});
@@ -82,5 +83,9 @@ public class ButtonPanel {
 
 	public JPanel getTextPanel() {
 		return panel;
+	}
+
+	public void setCommonCardsSignalPanel(CommonCardsSignalPanel commonCardsPanel) {
+		this.commonCardsPanel = commonCardsPanel;
 	}
 }

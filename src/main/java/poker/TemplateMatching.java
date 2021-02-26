@@ -58,14 +58,16 @@ public class TemplateMatching {
 				if (percentage > tempPercentage) {
 					percentage = tempPercentage;
 					currentCard = deckOfCards[z].getName();
-					System.out.println(currentCard);
-					System.out.println("Difference: " + percentage);
+//					System.out.println(currentCard);
+//					System.out.println("Difference: " + percentage);
 
 				}
 			}
 		}
-		System.out.println("Current card: " + currentCard);
-		if (percentage > 1.5) {
+//		System.out.println("Current card: " + currentCard);
+		System.out.println("% "+percentage);
+		if (percentage > 7) {
+			System.out.println(currentCard);
 			return "??";
 		}
 		return currentCard.substring(0,currentCard.indexOf("."));
@@ -92,10 +94,12 @@ public class TemplateMatching {
 	}
 	
 	public void compareTurn(String pathToCardImage) {
+		System.out.println(pathToCardImage);
 		turn = (compareCard(pathToCardImage));
 	}
 	
 	public void compareRiver(String pathToCardImage) {
+		System.out.println(pathToCardImage);
 		river = (compareCard(pathToCardImage));
 	}
 
