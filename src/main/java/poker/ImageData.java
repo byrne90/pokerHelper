@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class ImageData extends PictureCapturing {
+	
+	private static final File[] targetImages = new File(System.getProperty("user.dir") + "\\target\\").listFiles();
 
 	private String heroFirstCardPath = null;
 	private String heroSecondCardPath = null;
@@ -239,7 +241,7 @@ public class ImageData extends PictureCapturing {
 		deleteImage(riverCardPath);
 	}
 	
-	private void deleteImage(String pathToImage) {
+	private static void deleteImage(String pathToImage) {
 		File file = new File(pathToImage); 
         
         if(file.delete()) 
@@ -252,4 +254,11 @@ public class ImageData extends PictureCapturing {
         } 
 	}
 
+	public static void deleteAllPngsFromTarget() {
+		for(int i = 0; i<targetImages.length; i++) {
+			if(targetImages[i].getName().contains(".png")) {
+				deleteImage(targetImages[i].getAbsolutePath());
+			}
+		}
+	}
 }

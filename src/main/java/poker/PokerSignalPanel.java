@@ -16,6 +16,7 @@ public class PokerSignalPanel {
 
 	protected PokerLightPanel lightPanel;
 	protected PokerCardPanel cardPanel;
+	protected PokerCardPanel buttonPanel;
 
 	public PokerSignalPanel() {
 		createPartControl();
@@ -30,15 +31,20 @@ public class PokerSignalPanel {
 		cardPanel.setForeground(Color.BLACK);
 		cardPanel.setPreferredSize(PokerSignalModel.LIGHT_SIZE);
 		
+		buttonPanel = new PokerCardPanel("??");
+		cardPanel.setForeground(Color.BLACK);
+		cardPanel.setPreferredSize(PokerSignalModel.LIGHT_SIZE);
+		
 		textPanel = new JPanel();
 		textPanel.setOpaque(false);
 		textPanel.setLayout(new FlowLayout());
 //		textPanel.setLocation(0, 0);
 		textPanel.setVisible(true);
-		textPanel.setPreferredSize(new Dimension(PokerSignalModel.LIGHT_SIZE.height*3, PokerSignalModel.LIGHT_SIZE.width*2));
+		textPanel.setPreferredSize(new Dimension(PokerSignalModel.LIGHT_SIZE.height*5, PokerSignalModel.LIGHT_SIZE.width*2));
 
 		textPanel.add(lightPanel);
 		textPanel.add(cardPanel);
+		textPanel.add(buttonPanel);
 	}
 
 	public JPanel getTextPanel() {
@@ -53,4 +59,7 @@ public class PokerSignalPanel {
 		return cardPanel;
 	}
 
+	public PokerCardPanel getButtoPosition() {
+		return buttonPanel;
+	}
 }

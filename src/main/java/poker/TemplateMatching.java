@@ -9,8 +9,12 @@ import javax.imageio.ImageIO;
 
 public class TemplateMatching {
 
-	private File[] deckOfCards = new File(System.getProperty("user.dir") + "\\src\\test\\resources\\cards\\")
+	private final File[] deckOfCards = new File(System.getProperty("user.dir") + "\\src\\test\\resources\\cards\\")
 			.listFiles();
+	private final File[] targetImages = new File(System.getProperty("user.dir") + "\\target\\").listFiles();
+	private final File buttonImage = new File(
+			System.getProperty("user.dir") + "\\src\\test\\resources\\button\\button.png");
+
 	private String firstCard = null;
 	private String secondCard = null;
 	private String firstCardFlop = null;
@@ -19,6 +23,14 @@ public class TemplateMatching {
 
 	private String turn = null;
 	private String river = null;
+	
+	private String buttonPosition = null;
+	
+	public String getButtonPosition() {
+		return buttonPosition;
+	}
+	
+
 
 	private String compareCardPixels(String fileName) throws IOException {
 		double percentage = 100;
@@ -65,12 +77,92 @@ public class TemplateMatching {
 			}
 		}
 //		System.out.println("Current card: " + currentCard);
-		System.out.println("% "+percentage);
+//		System.out.println("% " + percentage);
 		if (percentage > 7) {
-			System.out.println(currentCard);
+//			System.out.println(currentCard);
 			return "??";
 		}
-		return currentCard.substring(0,currentCard.indexOf("."));
+		return currentCard.substring(0, currentCard.indexOf("."));
+	}
+
+	private String compareButtonPositions() throws IOException {
+		double percentage = 100;
+		String currentButtonPosition = null;
+
+		for (int z = 0; z < targetImages.length; z++) {
+			if (!targetImages[z].getName().contains("Button")) {
+				continue;
+			}
+			BufferedImage img1 = ImageIO.read(buttonImage);
+			BufferedImage img2 = ImageIO.read(targetImages[z]);
+			int w1 = img1.getWidth();
+			int w2 = img2.getWidth();
+			int h1 = img1.getHeight();
+			int h2 = img2.getHeight();
+			if ((w1 != w2) || (h1 != h2)) {
+				System.out.println("Both images should have same dimwnsions");
+			} else {
+				long diff = 0;
+				for (int j = 0; j < h1; j++) {
+					for (int i = 0; i < w1; i++) {
+						// Getting the RGB values of a pixel
+						int pixel1 = img1.getRGB(i, j);
+						Color color1 = new Color(pixel1, true);
+						int r1 = color1.getRed();
+						int g1 = color1.getGreen();
+						int b1 = color1.getBlue();
+						int pixel2 = img2.getRGB(i, j);
+						Color color2 = new Color(pixel2, true);
+						int r2 = color2.getRed();
+						int g2 = color2.getGreen();
+						int b2 = color2.getBlue();
+						// sum of differences of RGB values of the two images
+						long data = Math.abs(r1 - r2) + Math.abs(g1 - g2) + Math.abs(b1 - b2);
+						diff = diff + data;
+					}
+				}
+				double avg = diff / (w1 * h1 * 3);
+				double tempPercentage = (avg / 255) * 100;
+				if (percentage > tempPercentage) {
+					percentage = tempPercentage;
+					currentButtonPosition = targetImages[z].getName();
+//					System.out.println(currentButtonPosition);
+//					System.out.println("Difference: " + percentage);
+				}
+			}
+		}
+		if (percentage > 7) {
+//			System.out.println(currentCard);
+			return "??";
+		}
+		return currentButtonPosition;
+	}
+	
+	public void checkForButtonPosition() {
+		try {
+			String buttonPositionImgPath = compareButtonPositions();
+			if(buttonPositionImgPath.contains("HeroButton")) {
+				buttonPosition = "BTN";
+			} else if (buttonPositionImgPath.contains("HeroPlusOne")) {
+				buttonPosition = "CO";
+			} else if( buttonPositionImgPath.contains("HeroPlusTwo")) {
+				buttonPosition = "HJ";
+			} else if(buttonPositionImgPath.contains("HeroPlusThree")) {
+				buttonPosition = "UTG";
+			} else if(buttonPositionImgPath.contains("HeroPlusFour")) {
+				buttonPosition = "BB";
+			} else if(buttonPositionImgPath.contains("HeroPlusFive")) {
+				buttonPosition = "SB";
+			} else {
+				buttonPosition = "??";
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void resetButtonSettings() {
+		buttonPosition = null;
 	}
 
 	public void compareFirstCard(String pathToCardImage) {
@@ -80,26 +172,24 @@ public class TemplateMatching {
 	public void compareSecondCard(String pathToCardImage) {
 		secondCard = (compareCard(pathToCardImage));
 	}
-	
+
 	public void compareFirstCardFlop(String pathToCardImage) {
 		firstCardFlop = (compareCard(pathToCardImage));
 	}
-	
+
 	public void compareSecondCardFlop(String pathToCardImage) {
 		secondCardFlop = (compareCard(pathToCardImage));
 	}
-	
+
 	public void compareThirdCardFlop(String pathToCardImage) {
 		thirdCardFlop = (compareCard(pathToCardImage));
 	}
-	
+
 	public void compareTurn(String pathToCardImage) {
-		System.out.println(pathToCardImage);
 		turn = (compareCard(pathToCardImage));
 	}
-	
+
 	public void compareRiver(String pathToCardImage) {
-		System.out.println(pathToCardImage);
 		river = (compareCard(pathToCardImage));
 	}
 

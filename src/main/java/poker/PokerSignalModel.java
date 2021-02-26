@@ -15,7 +15,7 @@ public class PokerSignalModel {
     public static final Dimension COMMON_CARDS_SIZE = new Dimension(75,200);
     public static final Dimension COMMON_CARDS_TEXT_SIZE = new Dimension(150,20);
     public static final Dimension USER_MONITOR_RES = new Dimension(defaultScreen.getDisplayMode().getHeight(),defaultScreen.getDisplayMode().getWidth());
-    public static final Dimension POKER_LIGHT_PANEL_SIZE = new Dimension(90,100);
+    public static final Dimension POKER_LIGHT_PANEL_SIZE = new Dimension(100,150);
     public static final Dimension HERO_CARDS_INDICATOR_LOCATION = new Dimension((int)(rect.getHeight()*0.77), (int)(rect.getWidth()*0.43));
     public static final Dimension COMMON_CARDS_INDICATOR_LOCATION = new Dimension((int)(rect.getHeight()*0.45), (int)(rect.getWidth()*0.37));
 

@@ -1,5 +1,7 @@
 package poker;
 
+import java.io.IOException;
+
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -20,9 +22,10 @@ public class PokerRunCycle extends Thread {
 
 	@Override
 	public void run() {
+		ImageData.deleteAllPngsFromTarget();
 		while (isRunning) {
 			try {
-				Thread.sleep(2500);
+				Thread.sleep(1500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -31,6 +34,9 @@ public class PokerRunCycle extends Thread {
 			ImageData imageData = new ImageData();
 			imageData.getCroppedImage(pictureCapturing.getScreenName());
 			TemplateMatching templateMatching = new TemplateMatching();
+
+			templateMatching.checkForButtonPosition();
+
 			templateMatching.compareFirstCard(imageData.getHeroFirstCardPath());
 			templateMatching.compareSecondCard(imageData.getHeroSecondCard());
 			templateMatching.compareFirstCardFlop(imageData.getFirstFlopCard());
@@ -41,14 +47,14 @@ public class PokerRunCycle extends Thread {
 			templateMatching.compareRiver(imageData.getRiverCard());
 
 			playerCardsLightOn(tsPanel.getLightPanel(), tsPanel.getCardPanel(), "red", templateMatching.getFirstCard(),
-					templateMatching.getSecondCard());
+					templateMatching.getSecondCard(), tsPanel.getButtoPosition(), templateMatching.getButtonPosition());
 			commonCardsLightOn(commonCardsPanel.getCommonCardsPanel(),
 					templateMatching.getFirstCardFlop() + " " + templateMatching.getSecondCardFlop() + " "
 							+ templateMatching.getThirdCardFlop() + " " + templateMatching.getTurnCard() + " "
 							+ templateMatching.getRiverCard());
 
-//			imageData.deleteAllImagesFromCycle(pictureCapturing.getScreenName());
-
+			imageData.deleteAllImagesFromCycle(pictureCapturing.getScreenName());
+			templateMatching.resetButtonSettings();
 		}
 		this.isFinished = true;
 	}
@@ -58,9 +64,10 @@ public class PokerRunCycle extends Thread {
 	}
 
 	protected void playerCardsLightOn(PokerLightPanel light, PokerCardPanel card, String color, String firstCardText,
-			String secondCardText) {
+			String secondCardText, PokerCardPanel position, String positionString) {
 		setLightOn(light, color);
 		setHeroCardsTextOn(card, firstCardText, secondCardText);
+		setButtonPositionOn(position, positionString);
 	}
 
 	protected void setIdleStatus() {
@@ -89,6 +96,14 @@ public class PokerRunCycle extends Thread {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				card.setCardPanelText(commonCards);
+			}
+		});
+	}
+	
+	private void setButtonPositionOn(final PokerCardPanel position, final String positionString) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				position.setCardPanelText(positionString);
 			}
 		});
 	}
