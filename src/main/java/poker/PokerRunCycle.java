@@ -23,6 +23,7 @@ public class PokerRunCycle extends Thread {
 	@Override
 	public void run() {
 		ImageData.deleteAllPngsFromTarget();
+		PokerCardsValues.initializePokerCardsValues();
 		while (isRunning) {
 			try {
 				Thread.sleep(1500);
@@ -45,8 +46,11 @@ public class PokerRunCycle extends Thread {
 
 			templateMatching.compareTurn(imageData.getTurnCard());
 			templateMatching.compareRiver(imageData.getRiverCard());
+			
+			PreflopPlay preflopPlay = new PreflopPlay();
+			String preflopAction = preflopPlay.checkCardsAgainstTheOpeningChart(templateMatching.getFirstCard(), templateMatching.getSecondCard(), templateMatching.getButtonPosition(), new BlackRainStartingHands());
 
-			playerCardsLightOn(tsPanel.getLightPanel(), tsPanel.getCardPanel(), "red", templateMatching.getFirstCard(),
+			playerCardsLightOn(tsPanel.getLightPanel(), tsPanel.getCardPanel(), preflopAction, templateMatching.getFirstCard(),
 					templateMatching.getSecondCard(), tsPanel.getButtoPosition(), templateMatching.getButtonPosition());
 			commonCardsLightOn(commonCardsPanel.getCommonCardsPanel(),
 					templateMatching.getFirstCardFlop() + " " + templateMatching.getSecondCardFlop() + " "
